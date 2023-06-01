@@ -1,23 +1,30 @@
 import React from "react";
 import { SafeAreaView, Text, StyleSheet ,View, StatusBar,ImageBackground } from "react-native";
-import {Feather} from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
+
+
 const City = () =>{
     return(
         <SafeAreaView style={styles.container}>
-            <ImageBackground source={require('../../assets/city_bg.jpg')} style={styles.image}>
+            <ImageBackground 
+                source={require('../../assets/city2_bg.jpg')} 
+                style={styles.imageLayout}
+            >
                 
-                <Text style={[styles.cityname, styles.cityText]}>City</Text>
-                <Text style={[styles.countryname, styles.cityText]}>City</Text>
+                <Text style={[styles.cityname, styles.cityText]}>Ghana</Text>
+                <Text style={[styles.countryname, styles.cityText]}>Accra</Text>
+
                 <View style={styles.populationWrapper}>
-                    <Feather name="user" size={50} color={'black'} />
-                    <Text style={styles.populationText}>8000</Text>
+                    <Feather name={'user'} size={50} color={'red'} />
+                    <Text style={styles.populationText}>838,000</Text>
                 </View>
                 <View style={styles.riseSetWrapper}>
-                    <Feather name="sunriseText" size={50} color={'white'} />
-                    <Text style={styles.sunrise}>09:25:15am</Text>
-                    <Feather name="sunsetText" size={50} color={'white'} />
-                    <Text style={styles.sunrise}>17:25:15pm</Text>
+                    <Feather name={'sunrise'} size={50} color={'white'} />
+                    <Text style={styles.riseSetText}>09:25:15</Text>
+                    <Feather name={'sunset'} size={50} color={'white'} />
+                    <Text style={styles.riseSetText}>17:25:15</Text>
                 </View>
+
             </ImageBackground>
         </SafeAreaView>
     )
@@ -28,7 +35,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: StatusBar.currentHeight || 0        
     },
-    image:{
+    imageLayout:{
         flex: 1
     },
     cityname:{
@@ -42,31 +49,30 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignSelf: 'center',
         fontWeight:'bold',
-        color:'#000'
+        color:'white'
     },
     populationWrapper:{
         flexDirection:'row',
         alignItems: 'center',
-        justifyContent:'canter',
-        marginTop:30
+        justifyContent:'center',
+        marginTop:35
     },
     populationText:{
-        fontSize: 20,
+        fontSize: 25,
         marginLeft: 7.5,
         color:'red',
         fontWeight:'bold'
     },
     riseSetWrapper:{
         flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-around',
+        alignItems: 'center',
+        justifyContent: 'space-around',
         marginTop:30
     },
-    populationText:{
+    riseSetText:{
         fontSize: 20,
-        marginLeft: 7.5,
         color:'white',
-        fontWeight:'bold'
+        fontWeight: 'bold'
     }
 })
 
