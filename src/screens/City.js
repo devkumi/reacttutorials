@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
     riseSetWrapper:{
         flexDirection:'row',
-        alignItems: 'center',
+        alignItems:'center',
         justifyContent:'space-around',
         marginTop:30
     },
