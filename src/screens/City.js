@@ -5,6 +5,7 @@ import IconText from "../component/IconText";
 
 
 const City = () =>{
+    const {container, cityText,cityname,countryname,imageLayout,populationText,populationWrapper,riseSetText,riseSetWrapper,rowLayout} = styles
     return(
         <SafeAreaView style={styles.container}>
             <ImageBackground 
@@ -15,14 +16,12 @@ const City = () =>{
                 <Text style={[styles.cityname, styles.cityText]}>Ghana</Text>
                 <Text style={[styles.countryname, styles.cityText]}>Accra</Text>
 
-                <View style={styles.populationWrapper}>
+                <View style={[styles.populationWrapper, styles.rowLayout]}>
                     <IconText iconName={'user'} iconColor={'red'}  bodyText={'854,520'}  bodyTextStyles={styles.populationText} />
                 </View>
-                <View style={styles.riseSetWrapper}>
-                    <Feather name={'sunrise'} size={50} color={'white'} />
-                    <Text style={styles.riseSetText}>09:25:15</Text>
-                    <Feather name={'sunset'} size={50} color={'white'} />
-                    <Text style={styles.riseSetText}>17:25:15</Text>
+                <View style={[styles.riseSetWrapper, styles.rowLayout]}>
+                    <IconText iconName={'sunrise'} iconColor={'white'}  bodyText={'09:25:15'}  bodyTextStyles={styles.riseSetText} />
+                    <IconText iconName={'sunset'} iconColor={'white'}  bodyText={'17:25:15'}  bodyTextStyles={styles.riseSetText} />
                 </View>
 
             </ImageBackground>
@@ -52,8 +51,6 @@ const styles = StyleSheet.create({
         color:'white'
     },
     populationWrapper:{
-        flexDirection:'row',
-        alignItems: 'center',
         justifyContent:'center',
         marginTop:35
     },
@@ -63,14 +60,16 @@ const styles = StyleSheet.create({
         color:'red'  
     },
     riseSetWrapper:{
-        flexDirection:'row',
-        alignItems: 'center',
         justifyContent: 'space-around',
         marginTop:30
     },
     riseSetText:{
         fontSize: 20,
         color:'white'
+    },
+    rowLayout:{
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
 
