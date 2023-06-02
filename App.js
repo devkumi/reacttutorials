@@ -11,26 +11,50 @@ const App = () => {
   const [loading, setLoading] = useState(true)
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [weather, setWeather] = useState([]);
+  const [lat, setLat] = useState([]);
+  const [lon, setLon] = useState([]);
 
-  console.log(WEATHER_API_KEY)
+  
 
+  const fetchWeatherData = async ()=> {
+    console.log(`WEATHER_API_KEY: ${WEATHER_API_KEY}`)
+    try {
+      const res = await fetch(`https://www.online.xdsdata.com/XDSConnectAPP/Api/Login?username=MobileApp&password=MobileApp`);
+      const data = await res.json();
+      setWeather(data)
+      console.log(`lat ${lat}`)
+      setLoading(false)
+    } catch (error) {
+      setErrorMsg('Could not fetch weather')
+    } finally{
+      setLoading(false)
+    }
+    
+  }
 
   useEffect(()=>{
     (async ()=>{
       let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
-        console.log('permission to access location was denied')
         setErrorMsg('permission to access location was denied')
         return
       }
       let location = await Location.getCurrentPositionAsync({})
       setLocation(location)
+      setLat(location.coords.latitude)
+      setLon(location.coords.longitude)
+      await fetchWeatherData()
     })()
-  }, [])
+  }, [lat, lon])
 
-   if (location) {
-    console.log('permission to access location was granted')
-    console.log(location)
+  if (weather) {
+    console.log(`weather: ${weather}`)
+  }
+
+  if (location) {
+  console.log('permission to access location was granted')
+  console.log(location)
   }
   
   if (loading) {
