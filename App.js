@@ -18,9 +18,9 @@ const App = () => {
   
 
   const fetchWeatherData = async ()=> {
-    console.log(`WEATHER_API_KEY: ${WEATHER_API_KEY}`)
+
     try {
-      const res = await fetch(`https://www.online.xdsdata.com/XDSConnectAPP/Api/Login?username=MobileApp&password=MobileApp`);
+      const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
       const data = await res.json();
       setWeather(data)
       console.log(`lat ${lat}`)
@@ -49,7 +49,7 @@ const App = () => {
   }, [lat, lon])
 
   if (weather) {
-    console.log(`weather: ${weather}`)
+    console.log(weather)
   }
 
   if (location) {
