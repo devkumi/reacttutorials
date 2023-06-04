@@ -1,7 +1,8 @@
 import React from "react"
 import { SafeAreaView, StyleSheet, View, Text, FlatList, StatusBar,ImageBackground } from "react-native"
 import { Feather } from '@expo/vector-icons'
-
+import { weatherType } from "../Utilities/WeatherType"
+import moment from "moment"
 
 const Empty = ()=>{
     <View>
@@ -9,20 +10,25 @@ const Empty = ()=>{
     </View>
 }
 const ListItem = (props)=>{
+    
     const { dt_txt, min, max, condition} = props
-    const {date, temp, item} = style
+    const {date, temp, item} = styles
+    // console.log(dt_txt)
     return(
-        <View style={style.item}>
-            <Feather name={'sun'} size={50} color={'white'}  />
-            <Text style={style.date}>{dt_txt}</Text>
-            <Text style={style.temp}>{min} °C</Text>
-            <Text style={style.temp}>{max} °C</Text>
+        <View style={styles.item}>
+            <Feather name={weatherType[condition].icon} size={50} color={'white'}  />
+            <View style={styles.dateTextWrapper}>
+                <Text style={styles.date}>{moment(dt_txt).format('dddd')}</Text>
+                <Text style={styles.date}>{moment(dt_txt).format('h:mm:ss a')}</Text>
+                <Text style={styles.date}>{moment(dt_txt).format('d/MM/Y')}</Text>
+            </View>
+            <Text style={styles.temp}>{`${Math.round(min)}/${Math.round(max)} °C`} </Text>
             
         </View>
     )
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
     container:{
         flex: 1,
         marginTop: StatusBar.currentHeight || 0,
@@ -36,7 +42,7 @@ const style = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderWidth: 5,
-        backgroundColor: 'pink'
+        backgroundColor: 'lightblue'
 
     },
     temp:{
@@ -49,6 +55,9 @@ const style = StyleSheet.create({
     },
     image:{
         flex: 1
+    },
+    dateTextWrapper:{
+        flexDirection: 'column'
     }
 })
 export default ListItem

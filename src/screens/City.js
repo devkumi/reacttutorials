@@ -2,9 +2,11 @@ import React from "react";
 import { SafeAreaView, Text, StyleSheet ,View, StatusBar,ImageBackground } from "react-native";
 import { Feather } from '@expo/vector-icons'
 import IconText from "../component/IconText";
+import moment from "moment";
 
 
-const City = () =>{
+const City = ({weatherData}) =>{
+    const {name, country, population, sunrise, sunset} = weatherData
     const {container, cityText,cityname,countryname,imageLayout,populationText,populationWrapper,riseSetText,riseSetWrapper,rowLayout} = styles
     return(
         <SafeAreaView style={styles.container}>
@@ -13,15 +15,15 @@ const City = () =>{
                 style={styles.imageLayout}
             >
               
-                <Text style={[styles.cityname, styles.cityText]}>Ghana</Text>
-                <Text style={[styles.countryname, styles.cityText]}>Accra</Text>
+                <Text style={[styles.cityname, styles.cityText]}>{name}</Text>
+                <Text style={[styles.countryname, styles.cityText]}>{country}</Text>
 
                 <View style={[styles.populationWrapper, styles.rowLayout]}>
-                    <IconText iconName={'user'} iconColor={'red'}  bodyText={'854,520'}  bodyTextStyles={styles.populationText} />
+                    <IconText iconName={'user'} iconColor={'red'}  bodyText={`Population ${population}`}  bodyTextStyles={styles.populationText} />
                 </View>
                 <View style={[styles.riseSetWrapper, styles.rowLayout]}>
-                    <IconText iconName={'sunrise'} iconColor={'white'}  bodyText={'09:25:15'}  bodyTextStyles={styles.riseSetText} />
-                    <IconText iconName={'sunset'} iconColor={'white'}  bodyText={'17:25:15'}  bodyTextStyles={styles.riseSetText} />
+                    <IconText iconName={'sunrise'} iconColor={'white'}  bodyText={moment(sunrise).format('h:mm:ss a')}  bodyTextStyles={styles.riseSetText} />
+                    <IconText iconName={'sunset'} iconColor={'white'}  bodyText={moment(sunset).format('h:mm:ss a')}  bodyTextStyles={styles.riseSetText} />
                 </View>
 
             </ImageBackground>
@@ -32,7 +34,7 @@ const City = () =>{
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0        
+        // marginTop: StatusBar.currentHeight || 0        
     },
     imageLayout:{
         flex: 1

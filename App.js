@@ -4,73 +4,34 @@ import { NavigationContainer } from '@react-navigation/native'
 import Tabs from './src/component/Tabs'
 import * as Location from 'expo-location'
 import {WEATHER_API_KEY} from '@env'
+import { useGetWeather } from './src/hoosks/useGetWeather'
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [weather, setWeather] = useState([]);
-  const [lat, setLat] = useState([]);
-  const [lon, setLon] = useState([]);
+  const [loading, errorMsg, weather] = useGetWeather()
 
-  
-
-  const fetchWeatherData = async ()=> {
-
-    try {
-      const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
-      const data = await res.json();
-      setWeather(data)
-      console.log(`lat ${lat}`)
-      setLoading(false)
-    } catch (error) {
-      setErrorMsg('Could not fetch weather')
-    } finally{
-      setLoading(false)
-    }
+  // console.log(loading, errorMsg, weather)
+  // if (loading) {
     
-  }
+  // }
 
-  useEffect(()=>{
-    (async ()=>{
-      let { status } = await Location.requestForegroundPermissionsAsync()
-      if (status !== 'granted') {
-        setErrorMsg('permission to access location was denied')
-        return
-      }
-      let location = await Location.getCurrentPositionAsync({})
-      setLocation(location)
-      setLat(location.coords.latitude)
-      setLon(location.coords.longitude)
-      await fetchWeatherData()
-    })()
-  }, [lat, lon])
-
-  if (weather) {
-    console.log(weather)
-  }
-
-  if (location) {
-  console.log('permission to access location was granted')
-  console.log(location)
-  }
-  
-  if (loading) {
+  if (weather && weather.list) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size={'large'} color={'blue'} />
-      </View>
+      <NavigationContainer>
+        <Tabs weather={weather} />
+      </NavigationContainer>
     )
   }
 
-  
   return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
+    <View style={styles.container}>
+      <ActivityIndicator size={'large'} color={'blue'} />
+    </View>
   )
+ 
   
 
   
