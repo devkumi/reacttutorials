@@ -5,10 +5,10 @@ import Tabs from './src/component/Tabs'
 import * as Location from 'expo-location'
 import {WEATHER_API_KEY} from '@env'
 import { useGetWeather } from './src/hoosks/useGetWeather'
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [loading, errorMsg, weather] = useGetWeather()
