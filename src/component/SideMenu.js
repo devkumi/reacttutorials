@@ -29,7 +29,7 @@ const SideMenu = () => {
         />
         <View style={[{ flexDirection: 'column' }]}>
           <Text style={styles.fullname}>Emmanuel Agyei-Kumi</Text>
-          <Text style={styles.idText}>{titleText}</Text>
+          <Text style={styles.idText}>0556292291</Text>
         </View>
       </View>
       <View style={[styles.horiLine, { marginTop: 33 }]} />

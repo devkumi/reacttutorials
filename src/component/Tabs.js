@@ -1,5 +1,12 @@
-import React, {useRef} from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity,Button } from 'react-native'
+import React, { useRef } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Button
+} from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -7,11 +14,11 @@ import CurrentWeather from '../screens/CurrentWeather'
 import UpcomingWeather from '../screens/UpcomingWeather'
 import City from '../screens/City'
 import TabHeader from './TabHeader'
-
+import Home from '../screens/Home'
 
 const Tab = createBottomTabNavigator()
 
-const Tabs = ({weather,drawerpro}) => {
+const Tabs = ({ weather, drawerpro }) => {
   // const { weather } = props
   // console.log(weather)
   const drawer = useRef(null)
@@ -30,12 +37,12 @@ const Tabs = ({weather,drawerpro}) => {
           fontWeight: 'bold',
           fontSize: 25,
           color: 'white'
-        },
+        }
       }}
     >
       <Tab.Screen
-        name="Current"
-        screenOptions={{headerTitleAlign: 'center'}}
+        name="Home"
+        screenOptions={{ headerTitleAlign: 'center' }}
         options={{
           tabBarIcon: ({ focused }) => (
             <Feather
@@ -44,29 +51,60 @@ const Tabs = ({weather,drawerpro}) => {
               color={focused ? '#54B847' : 'black'}
             />
           ),
-          headerTitle: () => (<TabHeader name="Name it" />),
+          headerTitle: () => <TabHeader name="Name it" />,
           headerRight: () => (
             <Feather
-              style={{marginRight: 10}}
+              style={{ marginRight: 10 }}
               name={'droplet'}
               size={25}
               color={'white'}
             />
-          ),headerLeft: () => (
+          ),
+          headerLeft: () => (
             <Feather
-              style={{marginLeft: 10}}
+              style={{ marginLeft: 10 }}
               name={'menu'}
               size={25}
               color={'white'}
               onPress={() => drawerpro.current.openDrawer()}
             />
-          ),
-          
-        }} 
+          )
+        }}
       >
-        {() => 
-          <CurrentWeather weatherData={weather.list[0]} />
-        }
+        {() => <Home weatherData={weather.list[0]} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Current"
+        screenOptions={{ headerTitleAlign: 'center' }}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Feather
+              name={'droplet'}
+              size={25}
+              color={focused ? '#54B847' : 'black'}
+            />
+          ),
+          headerTitle: () => <TabHeader name="Name it" />,
+          headerRight: () => (
+            <Feather
+              style={{ marginRight: 10 }}
+              name={'droplet'}
+              size={25}
+              color={'white'}
+            />
+          ),
+          headerLeft: () => (
+            <Feather
+              style={{ marginLeft: 10 }}
+              name={'menu'}
+              size={25}
+              color={'white'}
+              onPress={() => drawerpro.current.openDrawer()}
+            />
+          )
+        }}
+      >
+        {() => <CurrentWeather weatherData={weather.list[0]} />}
       </Tab.Screen>
       <Tab.Screen
         name="Upcoming"
@@ -79,10 +117,8 @@ const Tabs = ({weather,drawerpro}) => {
             />
           )
         }}
-        >
-        {() => 
-          <UpcomingWeather weatherData={weather.list} />
-        }
+      >
+        {() => <UpcomingWeather weatherData={weather.list} />}
       </Tab.Screen>
       <Tab.Screen
         name="City"
@@ -95,17 +131,13 @@ const Tabs = ({weather,drawerpro}) => {
             />
           )
         }}
-        >
-        {() => 
-          <City weatherData={weather.city} />
-        }
+      >
+        {() => <City weatherData={weather.city} />}
       </Tab.Screen>
     </Tab.Navigator>
   )
 }
 
-const styles = StyleSheet.create({
-  
-})
+const styles = StyleSheet.create({})
 
 export default Tabs
