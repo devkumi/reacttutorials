@@ -1,5 +1,14 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, View, Text, FlatList, StatusBar,ImageBackground } from "react-native"
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  StatusBar,
+  ImageBackground,
+  ScrollView
+} from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import ListItem from '../component/ListItem'
 import ProductMenuList from '../component/ProductMenuList'
@@ -48,39 +57,73 @@ const manuList = [
     manukey: 'GetConsumerFullCreditReport',
     price: '1',
     hasSub: 'No'
-  },
-  {
-    icon: 'assets/svg/credit_score.svg',
-    menuTitle: 'Detailed Mobile (Momo) Report',
-    description: 'The loan be long but we take am',
-    manukey: 'GetConsumerMobileCredit',
-    price: '1',
-    hasSub: 'No'
-  },
-  {
-    icon: 'assets/svg/loansummary.svg',
-    menuTitle: 'Narration',
-    description: 'The loan be long but we take am',
-    manukey: 'GetNarration',
-    price: '1',
-    hasSub: 'Yes',
-    sub: [
-      {
-        submenu: 'Consumer Loan Narration',
-        icon: 'assets/svg/consumer_basic_report.svg'
-      },
-      {
-        submenu: 'Mobile Loan Narration',
-        icon: 'assets/svg/mobile_credit.svg'
-      }
-    ]
   }
+  // {
+  //   icon: 'assets/svg/credit_score.svg',
+  //   menuTitle: 'Detailed Mobile (Momo) Report',
+  //   description: 'The loan be long but we take am',
+  //   manukey: 'GetConsumerMobileCredit',
+  //   price: '1',
+  //   hasSub: 'No'
+  // },
+  // {
+  //   icon: 'assets/svg/loansummary.svg',
+  //   menuTitle: 'Narration',
+  //   description: 'The loan be long but we take am',
+  //   manukey: 'GetNarration',
+  //   price: '1',
+  //   hasSub: 'Yes',
+  //   sub: [
+  //     {
+  //       submenu: 'Consumer Loan Narration',
+  //       icon: 'assets/svg/consumer_basic_report.svg'
+  //     },
+  //     {
+  //       submenu: 'Mobile Loan Narration',
+  //       icon: 'assets/svg/mobile_credit.svg'
+  //     }
+  //   ]
+  // }
 ]
+
+const newsList = [
+  {
+    icon: 'assets/svg/consumer_basic_report.svg',
+    menuTitle: 'News of the Day',
+    description: 'The loan be long but we take am'
+  }
+  // {
+  //   icon: 'assets/svg/mobile_credit.svg',
+  //   menuTitle: 'Mobile (Momo) Loan Summary',
+  //   description: 'The loan be long but we take am',
+  // }
+]
+const productsList = () => {
+  for (let index = 0; index < manuList.length; index++) {
+    const element = manuList[index]
+    return (
+      <ProductMenuList
+        menuTitle={manuList[index].menuTitle}
+        description={manuList[index].description}
+      />
+    )
+
+    console.log(element)
+  }
+}
+
 const Home = () => {
   const renderItem = ({ item }) => (
     <ProductMenuList
-        menuTitle={item.menuTitle}
-        description={item.description}
+      menuTitle={item.menuTitle}
+      description={item.description}
+    />
+  )
+
+  const newsItem = ({ item }) => (
+    <ProductMenuList
+      menuTitle={item.menuTitle}
+      description={item.description}
     />
   )
 
@@ -90,15 +133,24 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <Text style={styles.title} >Home, Emmanuel</Text>
-      <FlatList
-        data={manuList}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.manukey}
-        // ItemSeparatorComponent={(item) => (
-        //   <View style={{ backgroundColor: 'royalblue', height: 2 }} />
-        // )}
-      />
+      <ScrollView>
+        <Text style={styles.title}>Home, Emmanuel</Text>
+        <ProductMenuList
+          menuTitle={newsList[0].menuTitle}
+          description={newsList[0].description}
+        />
+        <View>
+          {manuList.map((y) => {
+            return (
+              <ProductMenuList
+                menuTitle={y.menuTitle}
+                description={y.description}
+              />
+            )
+          })}
+        </View>
+      </ScrollView>
+
       {/* <Text >Home</Text> */}
     </SafeAreaView>
   )
@@ -113,16 +165,16 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 8,
     marginHorizontal: 13,
-    alignItems: 'center',
+    alignItems: 'center'
   },
-  title:{
+  title: {
     marginTop: 15,
     padding: 10,
     marginVertical: 5,
     marginHorizontal: 13,
     alignItems: 'center',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '700'
   },
   temp: {
     color: 'white',

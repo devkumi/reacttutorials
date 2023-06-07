@@ -12,9 +12,9 @@ import {
 import { Feather, AntDesign } from '@expo/vector-icons'
 
 const ProductMenuList = (props) => {
-    console.log(props.menuTitle)
+    // console.log(props.menuTitle)
   return (
-    <View style={[styles.item, styles.card, styles.shadowProp]}>
+    <View onStartShouldSetResponder={() => {console.log('Clicked')}} style={[styles.item, styles.card, styles.shadowProp]}>
       <AntDesign name={'creditcard'} size={50} color={'#54B847'} />
       <View style={styles.dateTextWrapper}>
         <Text style={styles.heading}>{props.menuTitle}</Text>
@@ -27,11 +27,10 @@ const ProductMenuList = (props) => {
 const styles = StyleSheet.create({
   item: {
     padding: 15,
-    marginVertical: 5,
-    marginHorizontal: 16,
+    marginHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
-    alignItems: 'center',
+    alignContent: 'center'
   },
   temp: {
     color: 'white',
@@ -51,17 +50,17 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 13,
+    marginBottom: 5,
   },
   subHeading: {
     fontSize: 12,
     fontWeight: '400',
-    marginBottom: 13,
+    // marginBottom: 13,
   },
   card: {
     backgroundColor: 'white',
     borderRadius: 25,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   shadowProp: {
     shadowColor: '#171717',
